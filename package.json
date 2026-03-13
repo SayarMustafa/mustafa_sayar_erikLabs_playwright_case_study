@@ -1,0 +1,23 @@
+{
+  "name": "mustafa_sayar_eriklabs_playwright_case_study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SayarMustafa/mustafa_sayar_erikLabs_playwright_case_study.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SayarMustafa/mustafa_sayar_erikLabs_playwright_case_study/issues"
+  },
+  "homepage": "https://github.com/SayarMustafa/mustafa_sayar_erikLabs_playwright_case_study#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0"
+  }
+}
