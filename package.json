@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:cucumber": "cucumber-js -c runners/cucumber.config.cjs",
+    "test": "cucumber-js -c runners/cucumber.config.cjs"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SayarMustafa/mustafa_sayar_erikLabs_playwright_case_study.git"
@@ -17,6 +20,7 @@
   },
   "homepage": "https://github.com/SayarMustafa/mustafa_sayar_erikLabs_playwright_case_study#readme",
   "devDependencies": {
+    "@cucumber/cucumber": "^11.0.0",
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0"
   }
