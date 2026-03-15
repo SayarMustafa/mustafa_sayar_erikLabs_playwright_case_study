@@ -1,7 +1,7 @@
 const BasePage = require('./BasePage');
 
 /**
- * Site genelinde ortak header; giriş linki, sepet, çıkış.
+ * Site genelinde ortak header; Login, Sepet, Logout.
  * Modüler kullanım: her sayfada header aynı.
  */
 class Header extends BasePage {
@@ -13,16 +13,13 @@ class Header extends BasePage {
     return this.page.getByRole('link', { name: /giriş yap|üye girişi/i }).first();
   }
 
+  /** Login ile aynı: Hesabım (#lnkMyAccount) – hover/tıklayınca menü açılır */
   get userMenu() {
-    return this.page.getByRole('button', { name: /hesabım|hesap|account/i }).or(this.page.locator('[class*="user-menu"], [class*="account-menu"]')).first();
+    return this.page.locator('#lnkMyAccount').first();
   }
 
   get logoutLink() {
-    return this.page.getByRole('link', { name: /çıkış|logout/i }).first();
-  }
-
-  get cartIcon() {
-    return this.page.getByRole('link', { name: /sepet|cart/i }).first();
+    return this.page.getByRole('link', { name: 'Çıkış Yap' }).or(this.page.getByRole('link', { name: /çıkış|logout/i })).first();
   }
 
   async logout() {
@@ -31,8 +28,9 @@ class Header extends BasePage {
     await this.logoutLink.click();
   }
 
-  async isLogoutVisible() {
-    return this.logoutLink.isVisible();
+  /** Hesabım'a tıklar → Kişisel bilgiler sayfasına gider (menü açık kalabilir, step'te kapatılır). */
+  async goToProfile() {
+    await this.userMenu.click();
   }
 }
 

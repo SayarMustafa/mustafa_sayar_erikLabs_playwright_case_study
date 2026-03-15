@@ -38,7 +38,7 @@ class LoginPage extends BasePage {
     return this.page.getByRole('textbox', { name: 'Şifre' });
   }
 
-  /** Login formunda "Giriş Yap / Hesap Oluştur" butonu (e-posta doldurulunca aktif) */
+  /** Login formunda "Giriş Yap / Hesap Oluştur" butonu */
   get submitButton() {
     return this.page.getByRole('button', { name: 'Giriş Yap / Hesap Oluştur' });
   }
@@ -48,7 +48,7 @@ class LoginPage extends BasePage {
     return this.page.getByRole('button', { name: 'Giriş Yap' });
   }
 
-  /** Önce Hesabım hover → nav.orangeBackground görünür → Giriş Yap/Hesap Oluştur tıkla → E-posta ile tıkla. */
+  /** Login ekranına gider*/
   async openLogin() {
     await this.myAccount.waitFor({ state: 'visible', timeout: 8000 });
     await this.myAccount.hover();
@@ -59,14 +59,6 @@ class LoginPage extends BasePage {
     await this.withEmailButton.waitFor({ state: 'visible', timeout: 8000 });
     await this.withEmailButton.click();
     await new Promise((r) => setTimeout(r, 5000));
-  }
-
-  async login(email, password) {
-    await this.emailInputField.waitFor({ state: 'visible', timeout: 8000 });
-    await this.emailInputField.click();
-    await this.emailInputField.fill(email);
-    await this.passwordInputField.fill(password);
-    await this.submitButton.click();
   }
 
   async isLoggedIn() {

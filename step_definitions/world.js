@@ -1,3 +1,17 @@
+/**
+ * Cucumber World (Custom World)
+ *
+ * Her senaryo çalıştığında Cucumber bu sınıfın bir örneğini oluşturur. Step definition'lar
+ * içinde "this" ile bu World'e erişir; böylece page, browser, baseURL ve tüm sayfa
+ * nesneleri (homePage, loginPage, cartPage, header, vb.) adımlar arasında paylaşılır.
+ *
+ * - page, context, browser, baseURL: hooks.js içinde (Before) atanır.
+ * - basePage, homePage, loginPage, searchResultsPage, productPage, cartPage, header,
+ *   updateProfilePage: getter'lar her erişimde ilgili Page sınıfının yeni bir örneğini
+ *   döner (page + baseURL ile). Step'ler this.homePage, this.cartPage gibi kullanır.
+ *
+ * Kullanım: Cucumber config'te require edilir; setWorldConstructor ile kayıt yapılır.
+ */
 const path = require('path');
 const { setWorldConstructor } = require('@cucumber/cucumber');
 
@@ -8,6 +22,7 @@ const SearchResultsPage = require(path.join(__dirname, '..', 'pages', 'SearchRes
 const ProductPage = require(path.join(__dirname, '..', 'pages', 'ProductPage'));
 const CartPage = require(path.join(__dirname, '..', 'pages', 'CartPage'));
 const Header = require(path.join(__dirname, '..', 'pages', 'Header'));
+const UpdateProfilePage = require(path.join(__dirname, '..', 'pages', 'UpdateProfilePage'));
 
 class CustomWorld {
   constructor() {
@@ -43,6 +58,10 @@ class CustomWorld {
 
   get header() {
     return new Header(this.page, this.baseURL);
+  }
+
+  get updateProfilePage() {
+    return new UpdateProfilePage(this.page, this.baseURL);
   }
 }
 

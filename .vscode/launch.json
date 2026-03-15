@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Cucumber (Runner)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/runners/index.js",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "HEADED": "0"
+      }
+    },
+    {
+      "name": "Cucumber (Runner) – HEADED",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/runners/index.js",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "HEADED": "1"
+      }
+    }
+  ]
+}

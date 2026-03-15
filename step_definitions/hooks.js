@@ -2,7 +2,7 @@ const path = require('path');
 const { Before, After, setDefaultTimeout } = require('@cucumber/cucumber');
 const { chromium, firefox, webkit } = require('@playwright/test');
 const BasePage = require(path.join(__dirname, '..', 'pages', 'BasePage'));
-const config = require(path.join(__dirname, '..', 'config', 'playwright.config.cjs'));
+const config = require(path.join(__dirname, '..', 'runners', 'playwright.config.cjs'));
 
 setDefaultTimeout(60000);
 
@@ -12,7 +12,7 @@ Before(async function () {
   const launch = { ...config.launchOptions };
   if (process.env.HEADED === '1' || process.env.HEADED === 'true') {
     launch.headless = false;
-    launch.slowMo = 100;
+    launch.slowMo = 400;
   }
   this.browser = await (engines[browser] || chromium).launch(launch);
   const ctxOpts = { ...config.contextOptions, ...(launch.headless === false && { viewport: null }) };

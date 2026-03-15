@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:cucumber": "cucumber-js -c config/cucumber.config.cjs",
-    "test": "cucumber-js -c config/cucumber.config.cjs"
+    "test": "node runners/index.js",
+    "test:cucumber": "cucumber-js -c runners/cucumber.config.cjs",
+    "test:runner": "node runners/index.js"
   },
   "repository": {
     "type": "git",

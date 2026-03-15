@@ -10,16 +10,10 @@ class HomePage extends BasePage {
 
   get searchInput() {
     return this.page
-      .getByPlaceholder(/ara|ürün|search|kategori|marka/i)
+      .locator('#txtSearchBox')
+      .or(this.page.getByPlaceholder(/ara|ürün|search|kategori|marka/i))
       .or(this.page.locator('input[type="search"]'))
       .or(this.page.locator('input[name*="search"], input[name*="q"], input[aria-label*="ara"]'))
-      .first();
-  }
-
-  get searchButton() {
-    return this.page
-      .getByRole('button', { name: /ara|search/i })
-      .or(this.page.getByRole('link', { name: /ara|search/i }))
       .first();
   }
 
@@ -30,31 +24,23 @@ class HomePage extends BasePage {
     await this.dismissCookieBannerIfPresent();
   }
 
-  /** Anasayfaya gider, overlay'leri kapatır ve sayfa başlığı ile anasayfada olduğunu doğrular. */
-  async openAndAssertIsHomePage() {
-    await this.goto('/');
-    await this.page.waitForLoadState('domcontentloaded');
-    await new Promise((r) => setTimeout(r, 800));
-    await this.dismissPopupIfPresent();
-    await this.dismissCookieBannerIfPresent();
-    const title = await this.page.title();
-    if (!/ebebek/i.test(title)) {
-      throw new Error(`Anasayfa başlığı beklenmiyor (ebebek içermeli): ${title}`);
-    }
-  }
-
+  /** Arama kutusuna tıklar (açık menü kapanır), yazar, Enter ile arama yapar. HEADED modda yazıyı görebilmen için tuş tuş yazar. */
   async search(term) {
     await this.dismissPopupIfPresent();
     await this.dismissCookieBannerIfPresent();
     await this.searchInput.waitFor({ state: 'visible', timeout: 10000 });
-    await this.searchInput.fill(term);
-    await new Promise((r) => setTimeout(r, 400));
-    const btnVisible = await this.searchButton.isVisible().catch(() => false);
-    if (btnVisible) {
-      await this.searchButton.click();
+    await this.searchInput.click();
+    const headed = /^1|true$/i.test(String(process.env.HEADED || ''));
+    if (headed) {
+      await this.searchInput.fill('');
+      await new Promise((r) => setTimeout(r, 300));
+      await this.page.keyboard.type(term, { delay: 100 });
+      await new Promise((r) => setTimeout(r, 500));
     } else {
-      await this.searchInput.press('Enter');
+      await this.searchInput.fill(term);
+      await new Promise((r) => setTimeout(r, 400));
     }
+    await this.searchInput.press('Enter');
     await this.page.waitForLoadState('domcontentloaded');
   }
 }

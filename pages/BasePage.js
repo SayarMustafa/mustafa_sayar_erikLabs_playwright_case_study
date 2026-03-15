@@ -22,19 +22,6 @@ class BasePage {
     await this.page.waitForLoadState(state);
   }
 
-  getTitle() {
-    return this.page.title();
-  }
-
-  async waitForSelector(selector, options = {}) {
-    await this.page.waitForSelector(selector, { timeout: 30000, ...options });
-  }
-
-  async isVisible(selector) {
-    const el = this.page.locator(selector).first();
-    return el.isVisible();
-  }
-
   /**
    * Popup görünürse kapatır (Locator Strategy: priority order). Görünmüyorsa sessizce devam eder.
    * @returns {{ success: boolean, strategyLabel?: string }}
