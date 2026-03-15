@@ -9,7 +9,10 @@ class ProductPage extends BasePage {
   }
 
   get addToCartButton() {
-    return this.page.getByRole('button', { name: /sepete ekle|add to cart/i }).first();
+    return this.page
+      .getByRole('button', { name: /sepete ekle|add to cart/i })
+      .or(this.page.locator('button, a').filter({ hasText: /sepete ekle/i }).first())
+      .first();
   }
 
   get productTitle() {

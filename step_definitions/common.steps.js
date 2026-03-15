@@ -11,6 +11,7 @@ function escapeRegex(str) {
 
 // elemente tıklar
 When('{string} elementine tıklanır', async function (elementName) {
+  console.log(`[When] Elementine tıklanır: "${elementName}".`);
   const re = new RegExp(escapeRegex(elementName), 'i');
   const locator = this.page
     .getByRole('button', { name: re })
@@ -23,6 +24,7 @@ When('{string} elementine tıklanır', async function (elementName) {
 
 // text'e tıklar 
 When('{string} text\'ine tıklanır', async function (text) {
+  console.log(`[When] Text'ine tıklanır: "${text}".`);
   const locator = this.page.getByText(text, { exact: false });
   await locator.first().waitFor({ state: 'visible', timeout: 15000 });
   await locator.first().click();
@@ -30,6 +32,7 @@ When('{string} text\'ine tıklanır', async function (text) {
 
 // elementin görünür olduğunu kontrol eder
 Then('{string} elementinin görünür olduğu kontrol edilir', async function (elementNameOrText) {
+  console.log(`[Then] Element görünür kontrolü: "${elementNameOrText}".`);
   const re = new RegExp(escapeRegex(elementNameOrText), 'i');
   const locator = this.page
     .getByRole('button', { name: re })
@@ -42,6 +45,7 @@ Then('{string} elementinin görünür olduğu kontrol edilir', async function (e
 
 //  alanların doldurulmasını sağlar
 When('{string} alanına {string} yazılır', async function (fieldLabelOrPlaceholder, value) {
+  console.log(`[When] Alanına yazılır: "${fieldLabelOrPlaceholder}" -> "${value}".`);
   const re = new RegExp(escapeRegex(fieldLabelOrPlaceholder), 'i');
   const locator = this.page
     .getByLabel(re)
@@ -53,6 +57,7 @@ When('{string} alanına {string} yazılır', async function (fieldLabelOrPlaceho
 
 // sayfalar arasında geçiş yapar
 When('{string} sayfasına gidilir', async function (pathOrUrl) {
+  console.log(`[When] Sayfasına gidilir: "${pathOrUrl}".`);
   const url = pathOrUrl.startsWith('http') ? pathOrUrl : `${(this.baseURL || '').replace(/\/$/, '')}/${pathOrUrl.replace(/^\//, '')}`;
   await this.page.goto(url);
   await this.page.waitForLoadState('domcontentloaded');

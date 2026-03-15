@@ -9,7 +9,7 @@ module.exports = {
       'step_definitions/world.js',
       'step_definitions/hooks.js',
       'step_definitions/common.steps.js',
-      'step_definitions/placeholder.steps.js',
+      'step_definitions/ebebekTestFlowSteps.js',
     ],
   },
 };

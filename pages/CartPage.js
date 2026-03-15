@@ -13,7 +13,7 @@ class CartPage extends BasePage {
   }
 
   get cartItems() {
-    return this.page.locator('[class*="cart-item"], [class*="basket-item"], [data-testid*="cart-item"]');
+    return this.page.locator('[class*="cart-item"], [class*="basket-item"], [class*="cart-line"], [data-testid*="cart-item"], table[class*="cart"] tbody tr, [class*="sepet"] [class*="item"]');
   }
 
   get emptyCartMessage() {
